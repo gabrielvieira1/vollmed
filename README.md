@@ -57,14 +57,44 @@ make dev
 
 ## 📋 Comandos Disponíveis
 
+### 🚀 Principais
+
 | Comando | Descrição |
 |---------|-----------|
-| `make up` | Inicia toda a aplicação |
+| `make up` | Inicia toda a aplicação (rápido) |
+| `make up-build` | Inicia com rebuild (quando necessário) |
 | `make down` | Para toda a aplicação |
-| `make logs` | Visualiza logs |
+| `make logs` | Visualiza logs em tempo real |
+| `make help` | Lista todos os comandos disponíveis |
+
+### 📊 Logs Específicos
+
+| Comando | Descrição |
+|---------|-----------|
+| `make logs-api` | Logs apenas da API |
+| `make logs-frontend` | Logs apenas do Frontend |
+| `make logs-db` | Logs apenas do Banco |
+
+### 🔧 Desenvolvimento
+
+| Comando | Descrição |
+|---------|-----------|
+| `make install` | Instala dependências |
+| `make dev` | Desenvolvimento local |
 | `make build` | Build de todos os projetos |
 | `make test` | Executa testes |
-| `make help` | Lista todos os comandos |
+| `make lint` | Executa lint |
+| `make lint-fix` | Corrige problemas de lint |
+
+### 🔄 Utilitários
+
+| Comando | Descrição |
+|---------|-----------|
+| `make clean` | Para e remove volumes (limpa dados) |
+| `make status` | Status dos containers |
+| `make restart-api` | Reinicia apenas a API |
+| `make restart-frontend` | Reinicia apenas o Frontend |
+| `make restart-db` | Reinicia apenas o Banco |
 
 ## 📦 Workspaces
 
