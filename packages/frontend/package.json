@@ -1,0 +1,12 @@
+{
+  "name": "@vollmed/frontend",
+  "version": "1.0.0",
+  "description": "VollMed Frontend - Interface do usuário",
+  "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server 3001",
+    "build": "echo 'Frontend estático - nada para buildar'",
+    "serve": "python3 -m http.server 3001",
+    "clean": "echo 'Frontend estático - nada para limpar'"
+  }
+}

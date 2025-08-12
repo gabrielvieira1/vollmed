@@ -1,0 +1,37 @@
+{
+  "name": "vollmed",
+  "version": "1.0.0",
+  "description": "VollMed - Sistema de Gestão Médica (Monorepo)",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:frontend\"",
+    "dev:api": "npm run start --workspace=packages/api",
+    "dev:frontend": "npm run dev --workspace=packages/frontend",
+    "build": "npm run build --workspaces",
+    "build:api": "npm run compile --workspace=packages/api",
+    "build:frontend": "npm run build --workspace=packages/frontend",
+    "test": "npm run test --workspaces",
+    "test:api": "npm run test --workspace=packages/api",
+    "lint": "eslint packages/*/src --ext .ts,.js,.tsx,.jsx",
+    "lint:fix": "eslint packages/*/src --ext .ts,.js,.tsx,.jsx --fix",
+    "clean": "npm run clean --workspaces && rm -rf node_modules",
+    "docker:up": "make up",
+    "docker:down": "make down",
+    "docker:logs": "make logs"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.45.0",
+    "typescript": "^5.1.6"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

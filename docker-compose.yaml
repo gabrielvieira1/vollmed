@@ -1,0 +1,75 @@
+version: "3"
+
+name: vollmed
+
+services:
+  db:
+    container_name: vollmed-db
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: testemed
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init_population.sql:/docker-entrypoint-initdb.d/init_population.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p12345"]
+      timeout: 10s
+      retries: 5
+      interval: 30s
+    networks:
+      - vollmed-network
+
+  api:
+    container_name: vollmed-api
+    build: 
+      context: ./packages/api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=12345
+      - DB_DATABASE=testemed
+    volumes:
+      - ./packages/api:/app
+    command: sh -c "bash /app/wait-for-it.sh -t 0 db:3306 -- npm install && npm start && while inotifywait -r -e modify /app; do npm start; done"
+    networks:
+      - vollmed-network
+
+  frontend:
+    container_name: vollmed-frontend
+    build:
+      context: ./packages/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
+    depends_on:
+      - api
+    networks:
+      - vollmed-network
+
+  redis:
+    container_name: vollmed-redis
+    image: redis:7
+    ports:
+      - "6379:6379"
+    networks:
+      - vollmed-network
+
+networks:
+  vollmed-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

@@ -1,0 +1,13 @@
+{
+  "name": "@vollmed/infra",
+  "version": "1.0.0",
+  "description": "VollMed Infrastructure - Terraform, Kubernetes, Monitoring",
+  "private": true,
+  "scripts": {
+    "tf:init": "cd terraform && terraform init",
+    "tf:plan": "cd terraform && terraform plan",
+    "tf:apply": "cd terraform && terraform apply",
+    "k8s:deploy": "kubectl apply -f kubernetes/",
+    "monitoring:up": "docker-compose -f monitoring/docker-compose.yml up -d"
+  }
+}
