@@ -15,7 +15,8 @@ services:
       - mysql_data:/var/lib/mysql
       - ./database/init_population.sql:/docker-entrypoint-initdb.d/init_population.sql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p12345"]
+      test:
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p12345"]
       timeout: 10s
       retries: 5
       interval: 30s
@@ -24,7 +25,7 @@ services:
 
   api:
     container_name: vollmed-api
-    build: 
+    build:
       context: ./packages/api
       dockerfile: Dockerfile
     ports:
@@ -68,6 +69,7 @@ services:
 
 networks:
   vollmed-network:
+    name: vollmed-network
     driver: bridge
 
 volumes:
